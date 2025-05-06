@@ -7,4 +7,5 @@ export interface IProject {
     image: string;
     tags: string[];
     github: string;
+    innovations: string[];
   }

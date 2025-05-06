@@ -1,38 +1,65 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, useParams } from "react-router-dom"; // Import useParams
+import { innovationsData } from "../data/innovationData";
 import { projectsData } from "../data/projectData";
-import { IProject } from "@/interfaces/iProject";
-import { useEffect, useState } from "react";
+import { globalStyles } from "../theme/globalStyles";
+import { useState, useEffect } from "react";
 import { HeroSection } from "./HeroSection";
-import { ProjectsGrid } from "./ProjectsGrid";
 import { ProjectDetail } from "./ProjectDetail";
-import { LearnMorePage } from "./LearnMorePage"; // Import the new component
+import { ProjectsGrid } from "./ProjectsGrid";
+import { IProject } from "../interfaces/iProject";
+import { InnovationsSection } from "./InnovationSection";
+import { IInnovation } from "../interfaces/IInnovation";
+import { LearnMorePage } from "./LearnMorePage"; // Import LearnMorePage
 
-export default function App(): JSX.Element {
+export default function App() {
   const [projects, setProjects] = useState<IProject[]>(projectsData);
-  const [selectedProject, setSelectedProject] = useState<IProject | null>(null);
-  const [isDetailView, setIsDetailView] = useState(false);
+  const [innovations, setInnovations] = useState<IInnovation[]>(innovationsData);
+  const [activeInnovationFilter, setActiveInnovationFilter] = useState<string | null>(null);
 
+  // Inject global styles
   useEffect(() => {
-    const mockPathname = window.location.hash.slice(1) || '';
-    if (mockPathname && projects) {
-      const project = projects.find((p) => p.slug === mockPathname);
-      if (project) {
-        setSelectedProject(project);
-        setIsDetailView(true);
-      }
-    }
-  }, [projects]);
+    const styleEl = document.createElement("style");
+    styleEl.textContent = globalStyles;
+    document.head.appendChild(styleEl);
 
-  const handleProjectClick = (project: IProject): void => {
-    setSelectedProject(project);
-    setIsDetailView(true);
-    window.location.hash = project.slug;
+    return () => {
+      document.head.removeChild(styleEl);
+    };
+  }, []);
+
+  const handleInnovationFilter = (innovationId: string) => {
+    if (activeInnovationFilter === innovationId) {
+      setActiveInnovationFilter(null); // Toggle off if already active
+    } else {
+      setActiveInnovationFilter(innovationId);
+    }
   };
 
-  const handleBackClick = (): void => {
-    setIsDetailView(false);
-    setSelectedProject(null);
-    window.location.hash = '';
+  // Filter projects based on selected innovation
+  const filteredProjects = activeInnovationFilter
+    ? projects.filter(
+        (project) =>
+          project.innovations &&
+          project.innovations.includes(activeInnovationFilter)
+      )
+    : projects;
+
+  // Component to handle project detail route
+  const ProjectDetailRoute = () => {
+    const { slug } = useParams<{ slug: string }>(); // Get the slug from the URL
+    const project = projects.find((p) => p.slug === slug); // Find the project by slug
+
+    if (!project) {
+      return <div className="text-center text-white">Project not found</div>; // Handle invalid slug
+    }
+
+    return (
+      <ProjectDetail
+        project={project}
+        onBackClick={() => window.history.back()} // Navigate back
+        innovations={innovations}
+      />
+    );
   };
 
   return (
@@ -42,17 +69,25 @@ export default function App(): JSX.Element {
           <Route
             path="/"
             element={
-              !isDetailView ? (
-                <>
-                  <HeroSection />
-                  <ProjectsGrid projects={projects} onProjectClick={handleProjectClick} />
-                </>
-              ) : (
-                <ProjectDetail project={selectedProject} onBackClick={handleBackClick} />
-              )
+              <>
+                <HeroSection />
+                <InnovationsSection
+                  innovations={innovations}
+                  activeFilter={activeInnovationFilter}
+                  onInnovationClick={handleInnovationFilter}
+                />
+                <ProjectsGrid
+                  projects={filteredProjects}
+                  onProjectClick={(project) =>
+                    (window.location.href = `/project/${project.slug}`)
+                  }
+                  activeInnovationFilter={activeInnovationFilter}
+                />
+              </>
             }
           />
           <Route path="/learnmore" element={<LearnMorePage />} />
+          <Route path="/project/:slug" element={<ProjectDetailRoute />} />
         </Routes>
       </div>
     </Router>
