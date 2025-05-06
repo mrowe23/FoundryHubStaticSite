@@ -28,7 +28,7 @@ export function HeroSection(): JSX.Element {
 
           {/* Subtitle */}
           <p className="text-lg text-gray-300 mb-6">
-            Discover and explore cutting-edge open source projects built with innovation at their core
+            Foundry Hub is the playground where artificial intelligence and human creativity collide to unlock the next generation of software innovation. Sketch out your vision and watch our AI-powered engine transform it into working prototypes—complete with production-ready code, live previews, and intelligent suggestions—so you can iterate faster, learn more, and build with confidence. Whether you’re exploring new ideas or refining complex workflows, Foundry Hub removes the friction of setup and scaffolding, letting you focus on what really matters: turning imagination into impact. AI + imagination = innovation.
           </p>
 
           {/* CTA Button: bright by default, only animate on hover/click */}
