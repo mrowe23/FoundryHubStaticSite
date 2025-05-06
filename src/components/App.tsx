@@ -63,7 +63,7 @@ export default function App() {
   };
 
   return (
-    <Router>
+    <Router basename="/FoundryHubStaticSite"> {/* Set the basename */}
       <div className="min-h-screen bg-gray-900 text-white">
         <Routes>
           <Route
