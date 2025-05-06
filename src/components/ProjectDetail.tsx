@@ -75,7 +75,7 @@ export function ProjectDetail({
                 <Github className="mr-2" size={20} />
                 View on GitHub
               </a>
-              <button className="bg-gradient-to-r from-cyan-500 to-purple-600 text-white px-4 py-2 rounded-lg flex items-center hover:shadow-lg hover:shadow-purple-500/30 transition-all">
+              <button className="bg-gradient-to-r from-cyan-500 to-blue-600 text-white px-4 py-2 rounded-lg flex items-center hover:shadow-lg hover:shadow-blue-500/30 transition-all">
                 <Globe className="mr-2" size={20} />
                 Visit Project
               </button>
@@ -92,13 +92,13 @@ export function ProjectDetail({
               key={`feature-${i}`}
               className="bg-gray-800 p-6 rounded-lg"
             >
-              <div className="w-12 h-12 rounded-full bg-purple-900 flex items-center justify-center mb-4">
+              <div className="w-12 h-12 rounded-full bg-blue-900 flex items-center justify-center mb-4">
                 {i === 0 ? (
-                  <Code size={24} className="text-purple-400" />
+                  <Code size={24} className="text-blue-400" />
                 ) : i === 1 ? (
-                  <Cpu size={24} className="text-purple-400" />
+                  <Cpu size={24} className="text-blue-400" />
                 ) : (
-                  <Globe size={24} className="text-purple-400" />
+                  <Globe size={24} className="text-blue-400" />
                 )}
               </div>
               <h3 className="text-xl font-bold mb-2 text-white">

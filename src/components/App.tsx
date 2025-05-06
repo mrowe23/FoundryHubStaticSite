@@ -1,9 +1,11 @@
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { projectsData } from "../data/projectData";
 import { IProject } from "@/interfaces/iProject";
 import { useEffect, useState } from "react";
 import { HeroSection } from "./HeroSection";
 import { ProjectsGrid } from "./ProjectsGrid";
 import { ProjectDetail } from "./ProjectDetail";
+import { LearnMorePage } from "./LearnMorePage"; // Import the new component
 
 export default function App(): JSX.Element {
   const [projects, setProjects] = useState<IProject[]>(projectsData);
@@ -34,15 +36,25 @@ export default function App(): JSX.Element {
   };
 
   return (
-    <div className="min-h-screen bg-gray-900 text-white">
-      {!isDetailView ? (
-        <>
-          <HeroSection />
-          <ProjectsGrid projects={projects} onProjectClick={handleProjectClick} />
-        </>
-      ) : (
-        <ProjectDetail project={selectedProject} onBackClick={handleBackClick} />
-      )}
-    </div>
+    <Router>
+      <div className="min-h-screen bg-gray-900 text-white">
+        <Routes>
+          <Route
+            path="/"
+            element={
+              !isDetailView ? (
+                <>
+                  <HeroSection />
+                  <ProjectsGrid projects={projects} onProjectClick={handleProjectClick} />
+                </>
+              ) : (
+                <ProjectDetail project={selectedProject} onBackClick={handleBackClick} />
+              )
+            }
+          />
+          <Route path="/learnmore" element={<LearnMorePage />} />
+        </Routes>
+      </div>
+    </Router>
   );
 }

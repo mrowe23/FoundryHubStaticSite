@@ -1,6 +1,9 @@
 import { Cpu, ArrowRight } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 export function HeroSection(): JSX.Element {
+  const navigate = useNavigate(); // Initialize the navigate function
+
   return (
     <div className="relative overflow-hidden bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900">
       {/* Static accent circles */}
@@ -28,11 +31,12 @@ export function HeroSection(): JSX.Element {
 
           {/* Subtitle */}
           <p className="text-lg text-gray-300 mb-6">
-            Foundry Hub is the playground where artificial intelligence and human creativity collide to unlock the next generation of software innovation. Sketch out your vision and watch our AI-powered engine transform it into working prototypes—complete with production-ready code, live previews, and intelligent suggestions—so you can iterate faster, learn more, and build with confidence. Whether you’re exploring new ideas or refining complex workflows, Foundry Hub removes the friction of setup and scaffolding, letting you focus on what really matters: turning imagination into impact. AI + imagination = innovation.
+            Foundry Hub is the playground where artificial intelligence and human creativity collide to unlock the next generation of software innovation.
           </p>
 
-          {/* CTA Button: bright by default, only animate on hover/click */}
+          {/* CTA Button: Navigate to /learnmore */}
           <button
+            onClick={() => navigate("/learnmore")} // Navigate to /learnmore on click
             className="
               group
               inline-flex items-center

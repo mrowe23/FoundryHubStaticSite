@@ -8,7 +8,7 @@ interface ProjectCardProps {
 
 export function ProjectCard({ project, onClick }: ProjectCardProps): JSX.Element {
     return (
-        <div className="bg-gray-800 rounded-lg overflow-hidden shadow-lg hover:shadow-purple-500/20 transition-all hover:-translate-y-1 cursor-pointer" onClick={onClick}>
+        <div className="bg-gray-800 rounded-lg overflow-hidden shadow-lg hover:shadow-blue-500/20 transition-all hover:-translate-y-1 cursor-pointer" onClick={onClick}>
             <div className="h-48 bg-gray-700 relative overflow-hidden">
                 <img src={project.image} alt={project.title} className="w-full h-full object-cover" />
                 <div className="absolute inset-0 bg-gradient-to-t from-gray-900 to-transparent opacity-70" />
@@ -28,7 +28,7 @@ export function ProjectCard({ project, onClick }: ProjectCardProps): JSX.Element
                         <Github size={16} className="mr-1" />
                         View Code
                     </a>
-                    <div className="text-purple-500 flex items-center text-sm">
+                    <div className="text-blue-500 flex items-center text-sm">
                         View Details
                         <ArrowRight size={16} className="ml-1" />
                     </div>
