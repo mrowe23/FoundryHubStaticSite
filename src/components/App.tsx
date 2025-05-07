@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route, useParams } from "react-router-dom"; // Import useParams
+import { BrowserRouter as Router, Routes, Route, useParams } from "react-router-dom";
 import { innovationsData } from "../data/innovationData";
 import { projectsData } from "../data/projectData";
 import { globalStyles } from "../theme/globalStyles";
@@ -9,7 +9,8 @@ import { ProjectsGrid } from "./ProjectsGrid";
 import { IProject } from "../interfaces/iProject";
 import { InnovationsSection } from "./InnovationSection";
 import { IInnovation } from "../interfaces/IInnovation";
-import { LearnMorePage } from "./LearnMorePage"; // Import LearnMorePage
+import { LearnMorePage } from "./LearnMorePage";
+import { Footer } from "./Footer";
 
 export default function App() {
   const [projects, setProjects] = useState<IProject[]>(projectsData);
@@ -29,66 +30,67 @@ export default function App() {
 
   const handleInnovationFilter = (innovationId: string) => {
     if (activeInnovationFilter === innovationId) {
-      setActiveInnovationFilter(null); // Toggle off if already active
+      setActiveInnovationFilter(null);
     } else {
       setActiveInnovationFilter(innovationId);
     }
   };
 
-  // Filter projects based on selected innovation
   const filteredProjects = activeInnovationFilter
     ? projects.filter(
-        (project) =>
-          project.innovations &&
-          project.innovations.includes(activeInnovationFilter)
-      )
+      (project) =>
+        project.innovations &&
+        project.innovations.includes(activeInnovationFilter)
+    )
     : projects;
 
-  // Component to handle project detail route
   const ProjectDetailRoute = () => {
-    const { slug } = useParams<{ slug: string }>(); // Get the slug from the URL
-    const project = projects.find((p) => p.slug === slug); // Find the project by slug
+    const { slug } = useParams<{ slug: string }>();
+    const project = projects.find((p) => p.slug === slug);
 
     if (!project) {
-      return <div className="text-center text-white">Project not found</div>; // Handle invalid slug
+      return <div className="text-center text-white">Project not found</div>;
     }
 
     return (
       <ProjectDetail
         project={project}
-        onBackClick={() => window.history.back()} // Navigate back
+        onBackClick={() => window.history.back()}
         innovations={innovations}
       />
     );
   };
 
   return (
-    <Router basename="/FoundryHubStaticSite"> {/* Set the basename */}
-      <div className="min-h-screen bg-gray-900 text-white">
-        <Routes>
-          <Route
-            path="/"
-            element={
-              <>
-                <HeroSection />
-                <InnovationsSection
-                  innovations={innovations}
-                  activeFilter={activeInnovationFilter}
-                  onInnovationClick={handleInnovationFilter}
-                />
-                <ProjectsGrid
-                  projects={filteredProjects}
-                  onProjectClick={(project) =>
-                    (window.location.href = `/project/${project.slug}`)
-                  }
-                  activeInnovationFilter={activeInnovationFilter}
-                />
-              </>
-            }
-          />
-          <Route path="/learnmore" element={<LearnMorePage />} />
-          <Route path="/project/:slug" element={<ProjectDetailRoute />} />
-        </Routes>
+    <Router>
+      <div className="min-h-screen flex flex-col bg-gray-900 text-white">
+        <div className="flex-grow">
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <>
+                  <HeroSection />
+                  <InnovationsSection
+                    innovations={innovations}
+                    activeFilter={activeInnovationFilter}
+                    onInnovationClick={handleInnovationFilter}
+                  />
+                  <ProjectsGrid
+                    projects={filteredProjects}
+                    onProjectClick={(project) =>
+                      (window.location.href = `/project/${project.slug}`)
+                    }
+                    activeInnovationFilter={activeInnovationFilter}
+                  />
+                </>
+              }
+            />
+            <Route path="/learnmore" element={<LearnMorePage />} />
+            <Route path="/project/:slug" element={<ProjectDetailRoute />} />
+          </Routes>
+        </div>
+        <Footer />
       </div>
     </Router>
   );

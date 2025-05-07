@@ -3,6 +3,26 @@ import { IProject } from "@/interfaces/iProject";
 export const projectsData: IProject[] = [
   {
     id: 1,
+    slug: "cognitive-load-heatmap",
+    title: "Cognitive Load Heatmap",
+    description: "Lightweight Flask app that analyzes UI screenshots with OmniParserV2 to produce cognitive load heatmaps",
+    longDescription: `# UI Cognitive Load Analyzer
+  
+  A lightweight Flask application that uses Microsoft's OmniParserV2 Foundry model to analyze UI screenshots, detect elements, and generate cognitive load heatmaps.
+  
+  ## Features
+  
+  - **UI Element Detection**: Leverages OmniParserV2 to identify text, buttons, and interactive elements  
+  - **Cognitive Load Analysis**: Evaluates element density, text complexity, and interactive element proximity  
+  - **Heatmap Visualization**: Generates color-coded overlays highlighting areas of high cognitive load  
+  - **Modern Glass UI**: Dark-themed interface with drag-and-drop functionality`,
+    image: "https://raw.githubusercontent.com/stasgora/round-spot/master/assets/banner.png", // replace with your actual image path
+    tags: ["Flask", "OmniParserV2", "Azure AI Foundry", "UI Analysis", "Heatmap"],
+    github: "https://github.com/your-org/cognitive-load-heatmap", // update to your repo URL
+    innovations: ["omniparserv2"],
+  },
+  {
+    id: 1,
     slug: "quantum-forge",
     title: "Quantum Forge",
     description: "A quantum computing simulation environment with interactive tutorials and visualization tools.",

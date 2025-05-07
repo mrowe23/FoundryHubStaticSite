@@ -31,7 +31,7 @@ export function HeroSection(): JSX.Element {
 
           {/* Subtitle */}
           <p className="text-lg text-gray-300 mb-6">
-            Foundry Hub is the playground where artificial intelligence and human creativity collide to unlock the next generation of software innovation.
+            XYZ Foundry Hub is the playground where artificial intelligence and human creativity collide to unlock the next generation of software innovation.
           </p>
 
           {/* CTA Button: Navigate to /learnmore */}
